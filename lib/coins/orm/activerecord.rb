@@ -4,11 +4,16 @@ require 'active_record'
 
 module Coins
   module ActiveRecord
-    ##
-    # 
+    # example:
+    # class Post < ActiveRecord::Base
+    #   have_coins :price_in_cents
+    # end
+    #
+    # Now you have the methods:
+    #  price_in_euros and price_with_tax
     #
     def have_coins(column)
- 
+      column = column.to_s
       class_eval <<-RUBY
         include Coins::TaxCalculations
         

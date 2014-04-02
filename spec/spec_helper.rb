@@ -15,3 +15,7 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 end
+
+# Coins.setup do |config|
+#   config.tax_rate = 16
+# end

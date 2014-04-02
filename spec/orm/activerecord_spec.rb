@@ -16,8 +16,10 @@ class TestMigration < ActiveRecord::Migration
   end
 end
 
-class Event < ActiveRecord::Base; end # setup a basic AR class for testing
-$arclass = 0
+class Event < ActiveRecord::Base
+  have_coins(:price_in_cents)
+end # setup a basic AR class for testing
+
 
 describe Coins::ActiveRecord do
 
@@ -27,33 +29,30 @@ describe Coins::ActiveRecord do
     after(:all) { TestMigration.down }
     after { Event.delete_all }
 
-    before do
-      # Rails 4 defaults to no root in JSON, join the party
+    before(:each) do
       ActiveRecord::Base.include_root_in_json = false
-
-      # My god, what a horrible, horrible solution, but AR validations don't work
-      # unless the class has a name. This is the best I could come up with :S
-      $arclass += 1
-      @class = Class.new(Event)
-      # AR validations don't work unless the class has a name, and
-      # anonymous classes can be named by assigning them to a constant
-      Object.const_set("Event#{$arclass}", @class)
-      @class.table_name = "events"
-     # @uploader = Class.new(Coins::Uploader::Base)
-      @class.have_coins(:price_in_cents)
-      @event = @class.new
+      @event = Event.create!(:price_in_cents => 10000)
     end
 
     it "has method price_in_euros" do
-      respond = @class.respond_to?(:price_in_euros)
+      respond = @event.respond_to?(:price_in_euros)
       respond.should be(true)
     end
     it "has method price_with_tax" do
-      respond = @class.respond_to?(:price_with_tax)
+      respond = @event.respond_to?(:price_with_tax)
       respond.should be(true)
     end
     
+    it "calculates euros" do
+      euros = @event.price_in_euros
+      expect(euros).to eq(100)
+    end
   
+    it "price get taxed" do
+      taxed = @event.price_with_tax
+      expect(taxed).to eq("121.00")
+    end
+      
   end
 end
     

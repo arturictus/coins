@@ -4,6 +4,7 @@ require 'active_record'
 
 module Coins
   module ActiveRecord
+    require "coins/tax_calculations"
     # example:
     # class Post < ActiveRecord::Base
     #   have_coins :price_in_cents

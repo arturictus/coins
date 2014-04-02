@@ -2,6 +2,7 @@ require "coins/version"
 require 'active_support/core_ext/module/attribute_accessors'
 
 module Coins
+  autoload "coins/tax_calculations"
   
   mattr_accessor :tax_rate
   @@tax_rate = 0

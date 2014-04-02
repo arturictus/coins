@@ -1,5 +1,6 @@
 module Coins
   require 'active_support/concern'
+  require "action_view"
   module TaxCalculations
     include ::ActionView::Helpers::NumberHelper
     extend ActiveSupport::Concern

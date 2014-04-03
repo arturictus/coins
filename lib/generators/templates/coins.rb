@@ -1,5 +1,6 @@
-# setup here Coins
-Coins.setup do |config|
+Coins.configure do |config|
+  
+  # setup here Coins
   
   # =>  Tax Rate 
   # integer

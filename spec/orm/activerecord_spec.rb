@@ -50,7 +50,7 @@ describe Coins::ActiveRecord do
   
     it "price get taxed" do
       taxed = @event.price_with_tax
-      expect(taxed).to eq("121.00")
+      expect(taxed).to eq("116.00")
     end
       
   end

@@ -1,24 +1,10 @@
 require "spec_Helper"
 require "coins/tax_calculations"
-describe Coins::TaxCalculations do
+
+
+describe Class.new do
   
   include Coins::TaxCalculations
-  
-  pending "default tax is 21" do
-    expect(get_tax).to eq(21)
-  end
-  
-  describe "STORE_TAX parameter is set" do
-    before(:each) do
-     @store_tax = 16
-    end
-  
-    describe "get_tax" do
-      it "gets the tax from the parameters" do
-       tax = get_tax
-       tax.should be(16)
-      end
-    end
   
     describe "tax_it" do
     
@@ -39,7 +25,7 @@ describe Coins::TaxCalculations do
   
     describe Coins::TaxCalculations::Taxable do
       before(:each) do
-        @taxable = Coins::TaxCalculations::Taxable.new(100.00 , 16 )
+        @taxable = Coins::TaxCalculations::Taxable.new(100.00)
       end
     
       it "calculates the tax correctly" do
@@ -56,5 +42,5 @@ describe Coins::TaxCalculations do
       end
     
     end
-end
+  
 end

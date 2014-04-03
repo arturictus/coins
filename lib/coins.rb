@@ -1,18 +1,24 @@
 require "coins/version"
-require 'active_support/core_ext/module/attribute_accessors'
+require "coins/configuration"
+
 
 module Coins
-  autoload "coins/tax_calculations"
   
-  mattr_accessor :tax_rate
-  @@tax_rate = 0
-  
-  # Default way to setup Devise. Run rails generate coins_install to create
+  # Default way to setup Coins. Run rails generate coins_install to create
   # a fresh initializer with all configuration values.
-  def self.setup
-    yield self
-  end
   
+  class << self
+    attr_writer :configuration
+  end
+
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.configure
+    yield(configuration)
+  end
+
 end
 
 if defined?(Rails)
@@ -31,3 +37,4 @@ if defined?(Rails)
 end
 
 require "coins/tax_calculations"
+require "coins/tax_calculations/taxable"

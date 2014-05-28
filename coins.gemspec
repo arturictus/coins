@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Coins::VERSION
   spec.authors       = ["Artur Pañach"]
   spec.email         = ["arturictus@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{adds tax calculations to your app}
+  spec.summary       = %q{set tax_rate and you'll have methods for your models and helpers for your views}
   spec.homepage      = "https://github.com/arturictus/coins"
   spec.license       = "MIT"
 

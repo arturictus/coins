@@ -31,6 +31,11 @@ if defined?(Rails)
           require 'coins/orm/activerecord'
         end
       end
+      initializer "coins.active_support" do
+        ActiveSupport.on_load(:action_view) do
+          include Coins::TaxCalculations
+        end
+      end
 
     end
   end

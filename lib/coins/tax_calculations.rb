@@ -12,8 +12,9 @@ module Coins
       number = Taxable.new(price)
       number.calculate_tax
       number_with_precision(number.taxed, :precision => 2)
-    end    
-      
+    end
   end
 
 end
+require "coins/tax_calculations/taxable"
+require "coins/tax_calculations/get_tax"

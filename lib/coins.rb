@@ -42,4 +42,4 @@ if defined?(Rails)
 end
 
 require "coins/tax_calculations"
-require "coins/tax_calculations/taxable"
+

@@ -12,7 +12,6 @@ module Coins
       end
 
       def calculate_tax
-        debugger
         taxed = (number * (tax * 0.01))+ number
         @taxed = taxed.round(2)
       end
@@ -22,16 +21,8 @@ module Coins
       end
 
       def get_tax
-        if Coins.configuration.source == :database
-          if Coins.configuration.eval_source
-            check = eval(Coins.configuration.eval_source) rescue nil
-            if check
-              check
-            else
-              Coins.configuration.tax_rate
-            end
-          end
-        end
+        rate = GetTax.new
+        rate.get_tax
       end
     end
   end

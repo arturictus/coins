@@ -5,14 +5,18 @@ module Coins
       # It does the basic Math for taxing a price
       #
       attr_accessor :number, :taxed
+      attr_reader :tax_amount , :tax
     
       def initialize(number)
+
         @number = number.to_f
         #@tax = Coins.configuration.tax_rate
       end
 
       def calculate_tax
-        taxed = (number * (tax * 0.01))+ number
+        applied_tax = (number * (tax * 0.01))
+        taxed = applied_tax + number
+        @tax_amount = applied_tax.round(2)
         @taxed = taxed.round(2)
       end
 

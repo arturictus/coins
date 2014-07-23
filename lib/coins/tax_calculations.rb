@@ -11,7 +11,7 @@ module Coins
     def tax_it(price)
       number = Taxable.new(price)
       number.calculate_tax
-      number_with_precision(number.taxed, :precision => 2)
+      number_to_currency(number.taxed)
     end
 
     def tax_it_extended(price)

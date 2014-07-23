@@ -13,24 +13,33 @@ module Coins
     # Now you have the methods:
     #  price_in_euros and price_with_tax
     #
-    def have_coins(column)
+    def have_coins(column, decorator = :integer)
       column = column.to_s
-      class_eval <<-RUBY
-        include Coins::TaxCalculations
+      template = Coins::ActiveRecord.const_get(decorator.to_s.capitalize+"Coins").new(column)
+      executable = template.executable
+      # class_eval <<-RUBY
+      #   include Coins::TaxCalculations
         
-         def price_in_euros=(euros)
-            self.#{column} = euros.to_d*100 if euros.present?
-         end
+      #    def price_in_euros=(euros)
+      #       self.#{column} = euros.to_d*100 if euros.present?
+      #    end
     
-         def price_in_euros
-            #{column}.to_d/100 if #{column}
-         end
+      #    def price_in_euros
+      #       #{column}.to_d/100 if #{column}
+      #    end
     
-         def price_with_tax
-           return unless price_in_euros
-           tax_it(price_in_euros)
-         end
-      RUBY
+      #    def price_with_tax
+      #      return unless price_in_euros
+      #      tax_it(price_in_euros)
+      #    end
+
+      #    def tax_amount
+      #       return unless price_in_euros
+      #       tax_amount =  tax_it_extended(price_in_euros).tax_amount
+      #       number_with_precision(tax_amount, precision: 2)
+      #    end
+      # RUBY
+      class_eval executable
 
     end
 
